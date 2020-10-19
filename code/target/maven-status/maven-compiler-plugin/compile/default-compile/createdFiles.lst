@@ -1,0 +1,5 @@
+com/example/quarkus/BackendResource.class
+com/example/quarkus/health/AppReadiness.class
+com/example/quarkus/ApplicationConfig.class
+com/example/quarkus/health/AppLiveness.class
+com/example/quarkus/BackendApp.class

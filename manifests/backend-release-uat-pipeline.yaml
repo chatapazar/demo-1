@@ -1,0 +1,29 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  labels:
+    build: backend-release-uat-pipeline
+  name: backend-release-uat-pipeline
+spec:
+  nodeSelector: {}
+  output: {}
+  postCommit: {}
+  resources: {}
+  runPolicy: Serial
+  source:
+    contextDir: Jenkinsfile/release-uat
+    git:
+      ref: master
+      uri: https://gitlab.com/ocp-demo/backend_quarkus.git
+    type: Git
+  strategy:
+    jenkinsPipelineStrategy:
+      env:
+      - name: UAT_PROJECT
+        value: uat
+      - name: CICD_PROJECT
+        value: ci-cd
+      - name: BACKEND_URL
+        value: https://httpbin.org/status/201
+      jenkinsfilePath: Jenkinsfile
+    type: JenkinsPipeline

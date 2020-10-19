@@ -1,0 +1,125 @@
+{
+  "apiVersion" : "v1",
+  "kind" : "ServiceAccount",
+  "metadata" : {
+    "annotations" : {
+      "app.quarkus.io/vcs-url" : "https://gitlab.com/ocp-demo/backend_quarkus.git",
+      "app.quarkus.io/build-timestamp" : "2020-10-15 - 07:30:16 +0000",
+      "app.quarkus.io/commit-id" : "bbced9ab3e9bdb61f4923bcf854d008ec61a1d92"
+    },
+    "labels" : {
+      "app.kubernetes.io/name" : "backend",
+      "app.kubernetes.io/version" : "1.0.0"
+    },
+    "name" : "backend"
+  }
+}{
+  "apiVersion" : "v1",
+  "kind" : "Service",
+  "metadata" : {
+    "annotations" : {
+      "app.quarkus.io/vcs-url" : "https://gitlab.com/ocp-demo/backend_quarkus.git",
+      "app.quarkus.io/build-timestamp" : "2020-10-15 - 07:30:16 +0000",
+      "app.quarkus.io/commit-id" : "bbced9ab3e9bdb61f4923bcf854d008ec61a1d92"
+    },
+    "labels" : {
+      "app.kubernetes.io/name" : "backend",
+      "app.kubernetes.io/version" : "1.0.0"
+    },
+    "name" : "backend"
+  },
+  "spec" : {
+    "ports" : [ {
+      "name" : "http",
+      "port" : 8080,
+      "targetPort" : 8080
+    } ],
+    "selector" : {
+      "app.kubernetes.io/name" : "backend",
+      "app.kubernetes.io/version" : "1.0.0"
+    },
+    "type" : "ClusterIP"
+  }
+}{
+  "apiVersion" : "apps/v1",
+  "kind" : "Deployment",
+  "metadata" : {
+    "annotations" : {
+      "app.quarkus.io/vcs-url" : "https://gitlab.com/ocp-demo/backend_quarkus.git",
+      "app.quarkus.io/build-timestamp" : "2020-10-15 - 07:30:16 +0000",
+      "app.quarkus.io/commit-id" : "bbced9ab3e9bdb61f4923bcf854d008ec61a1d92"
+    },
+    "labels" : {
+      "app.kubernetes.io/name" : "backend",
+      "app.kubernetes.io/version" : "1.0.0"
+    },
+    "name" : "backend"
+  },
+  "spec" : {
+    "replicas" : 1,
+    "selector" : {
+      "matchLabels" : {
+        "app.kubernetes.io/name" : "backend",
+        "app.kubernetes.io/version" : "1.0.0"
+      }
+    },
+    "template" : {
+      "metadata" : {
+        "annotations" : {
+          "app.quarkus.io/vcs-url" : "https://gitlab.com/ocp-demo/backend_quarkus.git",
+          "app.quarkus.io/build-timestamp" : "2020-10-15 - 07:30:16 +0000",
+          "app.quarkus.io/commit-id" : "bbced9ab3e9bdb61f4923bcf854d008ec61a1d92"
+        },
+        "labels" : {
+          "app.kubernetes.io/name" : "backend",
+          "app.kubernetes.io/version" : "1.0.0"
+        }
+      },
+      "spec" : {
+        "containers" : [ {
+          "env" : [ {
+            "name" : "KUBERNETES_NAMESPACE",
+            "valueFrom" : {
+              "fieldRef" : {
+                "fieldPath" : "metadata.namespace"
+              }
+            }
+          } ],
+          "image" : "voravit/backend:1.0.0",
+          "imagePullPolicy" : "IfNotPresent",
+          "livenessProbe" : {
+            "failureThreshold" : 3,
+            "httpGet" : {
+              "path" : "/health/live",
+              "port" : 8080,
+              "scheme" : "HTTP"
+            },
+            "initialDelaySeconds" : 0,
+            "periodSeconds" : 30,
+            "successThreshold" : 1,
+            "timeoutSeconds" : 10
+          },
+          "name" : "backend",
+          "ports" : [ {
+            "containerPort" : 8080,
+            "name" : "http",
+            "protocol" : "TCP"
+          } ],
+          "readinessProbe" : {
+            "failureThreshold" : 3,
+            "httpGet" : {
+              "path" : "/health/ready",
+              "port" : 8080,
+              "scheme" : "HTTP"
+            },
+            "initialDelaySeconds" : 0,
+            "periodSeconds" : 30,
+            "successThreshold" : 1,
+            "timeoutSeconds" : 10
+          }
+        } ],
+        "serviceAccount" : "backend"
+      }
+    }
+  }
+}
