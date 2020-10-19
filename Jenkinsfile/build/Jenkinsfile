@@ -1,4 +1,4 @@
-def JENKINS_SLAVE_IMAGE = "maven36-with-tools"
+def JENKINS_SLAVE_IMAGE = "maven36"
 pipeline {
   agent {
     kubernetes {
