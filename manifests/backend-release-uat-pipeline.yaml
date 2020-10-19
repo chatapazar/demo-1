@@ -14,7 +14,7 @@ spec:
     contextDir: Jenkinsfile/release-uat
     git:
       ref: master
-      uri: https://gitlab.com/ocp-demo/backend_quarkus.git
+      uri: https://github.com/voraviz/demo.git
     type: Git
   strategy:
     jenkinsPipelineStrategy:
@@ -24,6 +24,6 @@ spec:
       - name: CICD_PROJECT
         value: ci-cd
       - name: BACKEND_URL
-        value: https://httpbin.org/status/201
+        value: https://localhost:8080/version
       jenkinsfilePath: Jenkinsfile
     type: JenkinsPipeline

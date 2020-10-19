@@ -15,7 +15,7 @@ spec:
     contextDir: Jenkinsfile/build
     git:
       ref: master
-      uri: https://gitlab.com/ocp-demo/backend_quarkus.git
+      uri: https://github.com/voraviz/demo.git
     # sourceSecret:
     #   name: gogs-secret
     type: Git
@@ -28,7 +28,7 @@ spec:
         - name: CICD_PROJECT
           value: ci-cd
         - name: BACKEND_URL
-          value: https://httpbin.org/status/200
+          value: https://localhost:8080/version
         - name: NEXUS_SVC
           value: http://nexus:8081
         - name: SONARQUBE_SVC
