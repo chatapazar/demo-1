@@ -1,19 +1,20 @@
-def JENKINS_SLAVE_IMAGE = "maven"
+def JENKINS_SLAVE_IMAGE = "maven36"
 pipeline {
   agent {
-    kubernetes {
-      label "maven36-with-tools"
-      cloud "openshift"
-      inheritFrom "maven"
-      containerTemplate {
-        name "jnlp"
-        image "image-registry.openshift-image-registry.svc:5000/ci-cd/${JENKINS_SLAVE_IMAGE}:latest"
-        resourceRequestMemory "600Mi"
-        resourceLimitMemory "2Gi"
-        resourceRequestCpu "1"
-        resourceLimitCpu "2"
-      }
-    }
+    label 'maven'
+    // kubernetes {
+    //   label "maven36-with-tools"
+    //   cloud "openshift"
+    //   inheritFrom "maven"
+    //   containerTemplate {
+    //     name "jnlp"
+    //     image "image-registry.openshift-image-registry.svc:5000/ci-cd/${JENKINS_SLAVE_IMAGE}:latest"
+    //     resourceRequestMemory "600Mi"
+    //     resourceLimitMemory "2Gi"
+    //     resourceRequestCpu "1"
+    //     resourceLimitCpu "2"
+    //   }
+    // }
   }
   options {
     // set a timeout of 30 minutes for this pipeline
