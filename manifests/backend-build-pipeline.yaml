@@ -15,7 +15,7 @@ spec:
     contextDir: Jenkinsfile/build
     git:
       ref: master
-      uri: https://github.com/voraviz/demo.git
+      uri: https://github.com/chatapazar/demo-1.git
     # sourceSecret:
     #   name: gogs-secret
     type: Git
